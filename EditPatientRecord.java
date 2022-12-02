@@ -266,11 +266,48 @@ public class EditPatientRecord extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_DeleteButton5ActionPerformed
 
-    private void SaveButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButton3ActionPerformed
-            OptionScreen nextScreen = new OptionScreen();
+    private void SaveButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SaveButton3ActionPerformed
+        // OptionScreen nextScreen = new OptionScreen();
+        String name = nameTextFeild.getText();
+        String id = trnTextField3.getText();
+        String age = ageTextField2.getText();
+        String gender = "male";
+        if (maleRadioButton1.isSelected()) {
+            gender = "male";
+        } else if (femaleRadioButton2.isSelected()) {
+            gender = "female";
+        }
+        String disabilities = (String) disabilitiesComboBox2.getSelectedItem();
+        String operations = (String) addOpComboBox5.getSelectedItem();
+        if(verifyInputs(name, id, age))
+        {
+            patient.change_name(name);
+            patient.change_id(Integer.parseInt(id));
+            patient.change_age(Integer.parseInt(age));
+            patient.change_gender(gender);
+            patient.change_disabilities(disabilities);
             this.setVisible(false);
-            nextScreen.setVisible(true);                // TODO add your handling code here:
-    }//GEN-LAST:event_SaveButton3ActionPerformed
+        }else{
+            new ErrorHandling().setVisible(true);
+        }
+        // patient.change_operations(name);
+         // TODO add your handling code here:
+    }// GEN-LAST:event_SaveButton3ActionPerformed
+
+    private boolean verifyInputs(String name, String id, String age) {
+        if (Integer.parseInt(age) < 0) {
+            return false;
+        }
+        if (id.length() < 9) {
+            return false;
+        }
+        for (int i = 0; i < name.length(); i++) {
+            if (!(Character.isLetter(name.charAt(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
